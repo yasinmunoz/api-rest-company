@@ -1,8 +1,14 @@
 package app.models;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
+
+import java.util.List;
+
 
 @Entity
 @Table(name="customers")
@@ -16,6 +22,9 @@ public class Customer {
 	private String website;
 	private Float creditLimit;
 	
+	@OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+	@JoinColumn(name="orderId")
+	private List<Order> orders;
 	
 	public Integer getCustomerId() {
 		return customerId;
@@ -46,6 +55,13 @@ public class Customer {
 	}
 	public void setCreditLimit(Float creditLimit) {
 		this.creditLimit = creditLimit;
+	}
+	
+	public List<Order> getOrders() {
+		return orders;
+	}
+	public void setOrders(List<Order> orders) {
+		this.orders = orders;
 	}
 	
 	
